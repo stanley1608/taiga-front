@@ -26,6 +26,7 @@ taiga = @.taiga
 trim = @.taiga.trim
 bindOnce = @.taiga.bindOnce
 
+
 module = angular.module("taigaCommon")
 
 # Directive that parses/format tags inputfield.
@@ -111,15 +112,16 @@ LbTagLineDirective = ($rs, $template, $compile) ->
     autocomplete = null
 
     link = ($scope, $el, $attrs, $model) ->
+        withoutColors = _.has($attrs, "withoutColors")
+
         ## Render
         renderTags = (tags, tagsColors = []) ->
             ctx = {
-                tags: _.map(tags, (t) -> {name: t, color: tagsColors[t]})
+                tags: _.map(tags, (t) -> {
+                    name: t,
+                    style: if not withoutColors then "border-left: 5px solid #{tagsColors[t]}" else ""
+                })
             }
-
-            _.map ctx.tags, (tag) =>
-                if tag.color
-                    tag.style = "border-left: 5px solid #{tag.color}"
 
             html = $compile(templateTags(ctx))($scope)
             $el.find(".tags-container").html(html)
@@ -196,7 +198,7 @@ LbTagLineDirective = ($rs, $template, $compile) ->
 
             autocomplete = new Awesomplete(input[0], {
                 list: _.keys(project.tags_colors)
-            });
+            })
 
             input.on "awesomplete-selectcomplete", () ->
                 addValue(input.val())
@@ -384,12 +386,11 @@ TagLineDirective = ($rootScope, $repo, $rs, $confirm, $modelTransform, $template
 
             autocomplete = new Awesomplete(input[0], {
                 list: _.keys(tags_colors)
-            });
+            })
 
             input.on "awesomplete-selectcomplete", () ->
                 addValue(input.val())
                 input.val("")
-
 
         $scope.$watchCollection () ->
             return $model.$modelValue?.tags
