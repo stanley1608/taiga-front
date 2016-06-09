@@ -83,6 +83,32 @@ resourceProvider = ($config, $repo, $http, $urls, $auth, $q, $translate) ->
     service.tagsColors = (projectId) ->
         return $repo.queryOne("projects", "#{projectId}/tags_colors")
 
+    service.deleteTag = (projectId, tag) ->
+        url = "#{$urls.resolve("projects")}/#{projectId}/delete_tag"
+        return $http.post(url, {tag: tag})
+
+    service.createTag = (projectId, tag, color) ->
+        url = "#{$urls.resolve("projects")}/#{projectId}/create_tag"
+        data = {}
+        data.tag = tag
+        if color
+            data.color = color
+        return $http.post(url, data)
+
+    service.editTag = (projectId, from_tag, to_tag, color) ->
+        url = "#{$urls.resolve("projects")}/#{projectId}/edit_tag"
+        data = {}
+        data.from_tag = from_tag
+        if to_tag
+            data.to_tag = to_tag
+        if color
+            data.color = color
+        return $http.post(url, data)
+
+    service.mixTags = (projectId, to_tag, from_tags) ->
+        url = "#{$urls.resolve("projects")}/#{projectId}/mix_tags"
+        return $http.post(url, {to_tag: to_tag, from_tags: from_tags})
+
     service.export = (projectId) ->
         url = "#{$urls.resolve("exporter")}/#{projectId}"
         return $http.get(url)
