@@ -8,13 +8,13 @@ section
     .admin-tags-section-wrapper(
         ng-show="projectTagsAll.length"
     )
-    
-        .add-tag-container
+        form.add-tag-container.new-value.hidden
             tg-color-selection.color-column(
                 tg-allow-empty="true"
                 ng-model="newValue"
             )
-                .current-color(ng-style="{background: newValue.color}")
+                .current-color(ng-style="{background: newValue.color}", ng-if="newValue.color")
+                .current-color.empty-color(ng-if="!newValue.color")
                 include ../../components/select-color
 
             .tag-name
@@ -38,7 +38,7 @@ section
                         title="{{'COMMON.CANCEL' | translate}}",
                         svg-icon="icon-close"
                     )
-        
+
         .table-header.table-tags-editor
             div.row.header-tag-row
                 .color-column(translate="COMMON.FIELDS.COLOR")
@@ -70,7 +70,8 @@ section
                     form(tg-bind-scope)
                         div.row.tag-row.table-main.visualization(class="{{ ctrl.mixingClass(tag) }}")
                             div.color-column
-                                div.current-color(ng-style="{background: tag.color}")
+                                div.current-color(ng-style="{background: tag.color}", ng-if="tag.color")
+                                div.current-color.empty-color(ng-if="!tag.color")
 
                             div.status-name
                                 span(tg-bo-html="tag.name")
@@ -102,7 +103,8 @@ section
                                 tg-allow-empty="true"
                                 ng-model="tag"
                             )
-                                div.current-color(ng-style="{background: tag.color}")
+                                div.current-color(ng-style="{background: tag.color}", ng-if="tag.color")
+                                div.current-color.empty-color(ng-if="!tag.color")
                                 include ../../components/select-color
 
                             div.status-name

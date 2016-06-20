@@ -22,6 +22,11 @@
             opacity: 1;
         }
     }
+    .current-color {
+        &.empty-color {
+            @include empty-color(38);
+        }
+    }
 }
 
 .tags-table {
@@ -95,6 +100,11 @@
         @include breakpoint(laptop) {
             display: block;
             padding: .5rem;
+        }
+    }
+    .current-color {
+        &.empty-color {
+            @include empty-color(38);
         }
     }
 }

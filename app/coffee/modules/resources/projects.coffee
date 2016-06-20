@@ -91,6 +91,7 @@ resourceProvider = ($config, $repo, $http, $urls, $auth, $q, $translate) ->
         url = "#{$urls.resolve("projects")}/#{projectId}/create_tag"
         data = {}
         data.tag = tag
+        data.color = null
         if color
             data.color = color
         return $http.post(url, data)
@@ -101,6 +102,7 @@ resourceProvider = ($config, $repo, $http, $urls, $auth, $q, $translate) ->
         data.from_tag = from_tag
         if to_tag
             data.to_tag = to_tag
+        data.color = null
         if color
             data.color = color
         return $http.post(url, data)

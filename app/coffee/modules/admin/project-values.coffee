@@ -783,7 +783,7 @@ ProjectTagsDirective = ($log, $repo, $confirm, $location, animationFrame, $trans
         initializeNewValue = ->
             $scope.newValue = {
                 "name": ""
-                "color": null
+                "color": ""
             }
 
         initializeTagsFilter = ->
@@ -837,6 +837,7 @@ ProjectTagsDirective = ($log, $repo, $confirm, $location, animationFrame, $trans
 
         saveNewValue = (target) ->
             formEl = target.parents("form")
+            formEl = target
             form = formEl.checksley()
             return if not form.validate()
 
@@ -870,8 +871,6 @@ ProjectTagsDirective = ($log, $repo, $confirm, $location, animationFrame, $trans
         $el.on "click", ".show-add-new", (event) ->
             event.preventDefault()
             $el.find(".new-value").removeClass('hidden')
-
-            goToBottomList(true)
 
         $el.on "click", ".add-new", debounce 2000, (event) ->
             event.preventDefault()
