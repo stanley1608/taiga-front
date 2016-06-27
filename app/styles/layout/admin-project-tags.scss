@@ -17,10 +17,6 @@
     }
     .options-column {
         display: flex;
-        .icon {
-            fill: $grayer;
-            opacity: 1;
-        }
     }
     .current-color {
         &.empty-color {
@@ -64,9 +60,6 @@
             padding: .7rem;
             &:hover {
                 cursor: default;
-            }
-            &.edition {
-                padding-left: 1rem;
             }
         }
     }

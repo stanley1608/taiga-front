@@ -105,6 +105,7 @@
     }
     .options-column {
         a {
+            cursor: pointer;
             display: inline-block;
         }
     }
@@ -121,13 +122,14 @@
         height: 40px;
         width: 40px;
     }
+
     .icon {
         cursor: pointer;
         fill: $gray-light;
         margin-right: 1rem;
         opacity: 0;
         &:hover {
-            fill: $primary;
+            fill: $primary-light;
             transition: all .2s ease-in;
         }
         &.icon-check {
@@ -148,9 +150,7 @@
             cursor: move;
         }
         &.icon-trash {
-            &:hover {
-                fill: $red-light;
-            }
+            fill: $red-light;
         }
     }
     .gu-mirror {

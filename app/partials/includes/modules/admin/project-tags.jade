@@ -13,7 +13,10 @@ section
                 tg-allow-empty="true"
                 ng-model="newValue"
             )
-                .current-color(ng-style="{background: newValue.color}", ng-if="newValue.color")
+                .current-color(
+                    ng-style="{background: newValue.color}"
+                    ng-if="newValue.color"
+                )
                 .current-color.empty-color(ng-if="!newValue.color")
                 include ../../components/select-color
 
@@ -54,7 +57,7 @@ section
                         svg-icon="icon-search"
                     )
 
-        div.table-main.table-admin-tags
+        .table-main.table-admin-tags
             div(ng-show="!mixingTags.toTag")
                 .admin-attributes-section-wrapper-empty(
                     ng-show="!projectTags.length"
@@ -68,15 +71,18 @@ section
                     tg-bind-scope
                 )
                     form(tg-bind-scope)
-                        div.row.tag-row.table-main.visualization(class="{{ ctrl.mixingClass(tag) }}")
-                            div.color-column
-                                div.current-color(ng-style="{background: tag.color}", ng-if="tag.color")
-                                div.current-color.empty-color(ng-if="!tag.color")
+                        .row.tag-row.table-main.visualization(ng-class="{{ ctrl.mixingClass(tag) }}")
+                            .color-column
+                                .current-color(
+                                    ng-style="{background: tag.color}"
+                                    ng-if="tag.color"
+                                )
+                                .current-color.empty-color(ng-if="!tag.color")
 
-                            div.status-name
+                            .status-name
                                 span(tg-bo-html="tag.name")
 
-                            div.options-column
+                            .options-column
                                 a.mix-tags(href="")
                                     tg-svg(
                                         title="{{'ADMIN.PROJECT_VALUES_TAGS.MIXING_MERGE' | translate}}"
@@ -87,27 +93,30 @@ section
 
                                 a.edit-value(href="")
                                     tg-svg(
-                                        svg-icon="icon-edit",
+                                        svg-icon="icon-edit"
                                         title="{{'ADMIN.COMMON.TITLE_ACTION_EDIT_VALUE' | translate}}"
                                     )
 
                                 a.delete-tag(href="")
                                     tg-svg(
-                                        svg-icon="icon-trash",
+                                        svg-icon="icon-trash"
                                         title="{{'ADMIN.COMMON.TITLE_ACTION_DELETE_VALUE' | translate}}"
                                     )
 
-                        div.row.tag-row.table-main.edition.hidden
-                            div.color-column(
+                        .row.tag-row.table-main.edition.hidden
+                            .color-column(
                                 tg-color-selection
                                 tg-allow-empty="true"
                                 ng-model="tag"
                             )
-                                div.current-color(ng-style="{background: tag.color}", ng-if="tag.color")
-                                div.current-color.empty-color(ng-if="!tag.color")
+                                .current-color(
+                                    ng-style="{background: tag.color}"
+                                    ng-if="tag.color"
+                                )
+                                .current-color.empty-color(ng-if="!tag.color")
                                 include ../../components/select-color
 
-                            div.status-name
+                            .status-name
                                 input(
                                     name="name"
                                     type="text"
@@ -117,15 +126,15 @@ section
                                     data-maxlength="255"
                                 )
 
-                            div.options-column
+                            .options-column
                                 a.save.e2e-save(href="")
                                     tg-svg(
-                                        title="{{'COMMON.SAVE' | translate}}",
+                                        title="{{'COMMON.SAVE' | translate}}"
                                         svg-icon="icon-save"
                                      )
                                 a.cancel(href="")
                                     tg-svg(
-                                        title="{{'COMMON.CANCEL' | translate}}",
+                                        title="{{'COMMON.CANCEL' | translate}}"
                                         svg-icon="icon-close"
                                     )
 
@@ -135,21 +144,21 @@ section
                     tg-bind-scope
                 )
                     form(tg-bind-scope)
-                        div.row.mixing-row.table-main.visualization(class="{{ ctrl.mixingClass(tag) }}")
-                            div.color-column
-                                div.current-color(ng-style="{background: tag.color}")
+                        .row.mixing-row.table-main.visualization(class="{{ ctrl.mixingClass(tag) }}")
+                            .color-column
+                                .current-color(ng-style="{background: tag.color}")
 
-                            div.status-name
+                            .status-name
                                 span(tg-bo-html="tag.name")
 
-                            div.mixing-options-column
+                            .mixing-options-column
                                 .mixing-help-text(
                                     ng-if="mixingTags.toTag === tag.name"
                                     translate="ADMIN.PROJECT_VALUES_TAGS.MIXING_HELP_TEXT"
                                 )
                                 a.mixing-confirm.button-green(
-                                    href="",
-                                    ng-if="mixingTags.toTag === tag.name && mixingTags.fromTags.length",
+                                    href=""
+                                    ng-if="mixingTags.toTag === tag.name && mixingTags.fromTags.length"
                                     translate="ADMIN.PROJECT_VALUES_TAGS.MIXING_MERGE"
                                 )
                                 a.mixing-cancel.button-gray(
@@ -161,6 +170,6 @@ section
                                     ng-if="mixingTags.fromTags.indexOf(tag.name) !== -1"
                                 )
                                     tg-svg(
-                                        title="{{'ADMIN.PROJECT_VALUES_TAGS.SELECTED' | translate}}",
+                                        title="{{'ADMIN.PROJECT_VALUES_TAGS.SELECTED' | translate}}"
                                         svg-icon="icon-merge"
                                     )
