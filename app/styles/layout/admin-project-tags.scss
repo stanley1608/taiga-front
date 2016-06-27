@@ -23,6 +23,9 @@
             @include empty-color(38);
         }
     }
+    input[type="text"] {
+        background: $white;
+    }
     .icon {
         opacity: 1;
     }
