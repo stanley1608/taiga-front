@@ -239,209 +239,209 @@ module.directive("tgLbTagLine", ["$tgResources", "$tgTemplate", "$compile", LbTa
 #############################################################################
 ## TagLine  Directive (for detail pages)
 #############################################################################
-
-TagLineDirective = ($rootScope, $repo, $rs, $confirm, $modelTransform, $template, $compile) ->
-    ENTER_KEY = 13
-    ESC_KEY = 27
-    COMMA_KEY = 188
-
-    templateTags = $template.get("common/tag/tags-line-tags.html", true)
-
-    link = ($scope, $el, $attrs, $model) ->
-        autocomplete = null
-        loading = false
-        deleteTagLoading = null
-
-        isEditable = ->
-            if $attrs.requiredPerm?
-                return $scope.project.my_permissions.indexOf($attrs.requiredPerm) != -1
-
-            return true
-
-        ## Render
-        renderTags = (tags, tagsColors) ->
-            colored_tags = []
-            for name in tags
-                color = tagsColors[name]
-
-                colored_tags.push({
-                    name: name
-                    style: if color then "border-left: 5px solid #{ color };" else ""
-                })
-
-            ctx = {
-                tags: colored_tags
-                isEditable: isEditable()
-                loading: loading
-                deleteTagLoading: deleteTagLoading
-            }
-
-            console.log tagsColors
-
-            html = $compile(templateTags(ctx))($scope)
-            $el.find("div.tags-container").html(html)
-
-        renderInReadModeOnly = ->
-            $el.find(".add-tag").remove()
-            $el.find("input").remove()
-            $el.find(".save").remove()
-
-        showAddTagButton = -> $el.find(".add-tag").removeClass("hidden")
-        hideAddTagButton = -> $el.find(".add-tag").addClass("hidden")
-
-        showAddTagButtonText = -> $el.find(".add-tag-text").removeClass("hidden")
-        hideAddTagButtonText = -> $el.find(".add-tag-text").addClass("hidden")
-
-        showSaveButton = -> $el.find(".save").removeClass("hidden")
-        hideSaveButton = -> $el.find(".save").addClass("hidden")
-
-        showInput = -> $el.find("input").removeClass("hidden").focus()
-        hideInput = -> $el.find("input").addClass("hidden").blur()
-        resetInput = ->
-            $el.find("input").val("")
-
-            autocomplete.close()
-
-        ## Aux methods
-        addValue = (value) ->
-            loading = true
-            value = trim(value.toLowerCase())
-            return if value.length == 0
-            renderTags($model.$modelValue.tags, $scope.project?.tags_colors)
-
-            transform = $modelTransform.save (item) ->
-                if not item.tags
-                    item.tags = []
-
-                tags = _.clone(item.tags)
-
-                tags.push(value) if value not in tags
-
-                item.tags = tags
-
-                return item
-
-            onSuccess = ->
-                $rootScope.$broadcast("object:updated")
-                loading = false
-                renderTags($model.$modelValue.tags, $scope.project?.tags_colors)
-
-            onError = ->
-                $confirm.notify("error")
-
-            hideSaveButton()
-
-            return transform.then(onSuccess, onError)
-
-        deleteValue = (value) ->
-            value = trim(value.toLowerCase())
-            return if value.length == 0
-            deleteTagLoading = value
-            renderTags($model.$modelValue.tags, $scope.project?.tags_colors)
-
-            transform = $modelTransform.save (item) ->
-                tags = _.clone(item.tags, false)
-                item.tags = _.pull(tags, value)
-
-                return item
-
-            onSuccess = ->
-                $rootScope.$broadcast("object:updated")
-                renderTags($model.$modelValue.tags, $scope.project?.tags_colors)
-                deleteTagLoading = null
-
-            onError = ->
-                $confirm.notify("error")
-                deleteTagLoading = null
-
-            return transform.then(onSuccess, onError)
-
-        saveInputTag = () ->
-            value = $el.find("input").val()
-
-            addValue(value)
-            resetInput()
-
-        ## Events
-        $el.on "keypress", "input", (event) ->
-            target = angular.element(event.currentTarget)
-
-            if event.keyCode == ENTER_KEY
-                saveInputTag()
-            else if String.fromCharCode(event.keyCode) == ','
-                event.preventDefault()
-                saveInputTag()
-            else
-                if target.val().length
-                    showSaveButton()
-                else
-                    hideSaveButton()
-
-        $el.on "keyup", "input", (event) ->
-            if event.keyCode == ESC_KEY
-                resetInput()
-                hideInput()
-                hideSaveButton()
-                showAddTagButton()
-
-        $el.on "click", ".save", (event) ->
-            event.preventDefault()
-            saveInputTag()
-
-        $el.on "click", ".add-tag", (event) ->
-            event.preventDefault()
-            hideAddTagButton()
-            showInput()
-
-        $el.on "click", ".remove-tag", (event) ->
-            event.preventDefault()
-            target = angular.element(event.currentTarget)
-
-            value = target.siblings(".tag-name").text()
-
-            deleteValue(value)
-            $scope.$digest()
-
-        bindOnce $scope, "project.tags_colors", (tags_colors) ->
-            if not isEditable()
-                renderInReadModeOnly()
-                return
-
-            showAddTagButton()
-
-            input = $el.find("input")
-
-            autocomplete = new Awesomplete(input[0], {
-                list: _.keys(tags_colors)
-            })
-
-            input.on "awesomplete-selectcomplete", () ->
-                addValue(input.val())
-                input.val("")
-
-        $scope.$watchCollection () ->
-            return $model.$modelValue?.tags
-        , () ->
-            model = $model.$modelValue
-
-            return if not model
-
-            if model.tags?.length
-                hideAddTagButtonText()
-            else
-                showAddTagButtonText()
-
-            tagsColors = $scope.project?.tags_colors or []
-            renderTags(model.tags, tagsColors)
-
-        $scope.$on "$destroy", ->
-            $el.off()
-
-    return {
-        link:link,
-        require:"ngModel"
-        templateUrl: "common/tag/tag-line.html"
-    }
-
-module.directive("tgTagLine", ["$rootScope", "$tgRepo", "$tgResources", "$tgConfirm",
-                               "$tgQueueModelTransformation", "$tgTemplate", "$compile", TagLineDirective])
+# 
+# TagLineDirective = ($rootScope, $repo, $rs, $confirm, $modelTransform, $template, $compile) ->
+#     ENTER_KEY = 13
+#     ESC_KEY = 27
+#     COMMA_KEY = 188
+#
+#     templateTags = $template.get("common/tag/tags-line-tags.html", true)
+#
+#     link = ($scope, $el, $attrs, $model) ->
+#         autocomplete = null
+#         loading = false
+#         deleteTagLoading = null
+#
+#         isEditable = ->
+#             if $attrs.requiredPerm?
+#                 return $scope.project.my_permissions.indexOf($attrs.requiredPerm) != -1
+#
+#             return true
+#
+#         ## Render
+#         renderTags = (tags, tagsColors) ->
+#             colored_tags = []
+#             for name in tags
+#                 color = tagsColors[name]
+#
+#                 colored_tags.push({
+#                     name: name
+#                     style: if color then "border-left: 5px solid #{ color };" else ""
+#                 })
+#
+#             ctx = {
+#                 tags: colored_tags
+#                 isEditable: isEditable()
+#                 loading: loading
+#                 deleteTagLoading: deleteTagLoading
+#             }
+#
+#             console.log tagsColors
+#
+#             html = $compile(templateTags(ctx))($scope)
+#             $el.find("div.tags-container").html(html)
+#
+#         renderInReadModeOnly = ->
+#             $el.find(".add-tag").remove()
+#             $el.find("input").remove()
+#             $el.find(".save").remove()
+#
+#         showAddTagButton = -> $el.find(".add-tag").removeClass("hidden")
+#         hideAddTagButton = -> $el.find(".add-tag").addClass("hidden")
+#
+#         showAddTagButtonText = -> $el.find(".add-tag-text").removeClass("hidden")
+#         hideAddTagButtonText = -> $el.find(".add-tag-text").addClass("hidden")
+#
+#         showSaveButton = -> $el.find(".save").removeClass("hidden")
+#         hideSaveButton = -> $el.find(".save").addClass("hidden")
+#
+#         showInput = -> $el.find("input").removeClass("hidden").focus()
+#         hideInput = -> $el.find("input").addClass("hidden").blur()
+#         resetInput = ->
+#             $el.find("input").val("")
+#
+#             autocomplete.close()
+#
+#         ## Aux methods
+#         addValue = (value) ->
+#             loading = true
+#             value = trim(value.toLowerCase())
+#             return if value.length == 0
+#             renderTags($model.$modelValue.tags, $scope.project?.tags_colors)
+#
+#             transform = $modelTransform.save (item) ->
+#                 if not item.tags
+#                     item.tags = []
+#
+#                 tags = _.clone(item.tags)
+#
+#                 tags.push(value) if value not in tags
+#
+#                 item.tags = tags
+#
+#                 return item
+#
+#             onSuccess = ->
+#                 $rootScope.$broadcast("object:updated")
+#                 loading = false
+#                 renderTags($model.$modelValue.tags, $scope.project?.tags_colors)
+#
+#             onError = ->
+#                 $confirm.notify("error")
+#
+#             hideSaveButton()
+#
+#             return transform.then(onSuccess, onError)
+#
+#         deleteValue = (value) ->
+#             value = trim(value.toLowerCase())
+#             return if value.length == 0
+#             deleteTagLoading = value
+#             renderTags($model.$modelValue.tags, $scope.project?.tags_colors)
+#
+#             transform = $modelTransform.save (item) ->
+#                 tags = _.clone(item.tags, false)
+#                 item.tags = _.pull(tags, value)
+#
+#                 return item
+#
+#             onSuccess = ->
+#                 $rootScope.$broadcast("object:updated")
+#                 renderTags($model.$modelValue.tags, $scope.project?.tags_colors)
+#                 deleteTagLoading = null
+#
+#             onError = ->
+#                 $confirm.notify("error")
+#                 deleteTagLoading = null
+#
+#             return transform.then(onSuccess, onError)
+#
+#         saveInputTag = () ->
+#             value = $el.find("input").val()
+#
+#             addValue(value)
+#             resetInput()
+#
+#         ## Events
+#         $el.on "keypress", "input", (event) ->
+#             target = angular.element(event.currentTarget)
+#
+#             if event.keyCode == ENTER_KEY
+#                 saveInputTag()
+#             else if String.fromCharCode(event.keyCode) == ','
+#                 event.preventDefault()
+#                 saveInputTag()
+#             else
+#                 if target.val().length
+#                     showSaveButton()
+#                 else
+#                     hideSaveButton()
+#
+#         $el.on "keyup", "input", (event) ->
+#             if event.keyCode == ESC_KEY
+#                 resetInput()
+#                 hideInput()
+#                 hideSaveButton()
+#                 showAddTagButton()
+#
+#         $el.on "click", ".save", (event) ->
+#             event.preventDefault()
+#             saveInputTag()
+#
+#         $el.on "click", ".add-tag", (event) ->
+#             event.preventDefault()
+#             hideAddTagButton()
+#             showInput()
+#
+#         $el.on "click", ".remove-tag", (event) ->
+#             event.preventDefault()
+#             target = angular.element(event.currentTarget)
+#
+#             value = target.siblings(".tag-name").text()
+#
+#             deleteValue(value)
+#             $scope.$digest()
+#
+#         bindOnce $scope, "project.tags_colors", (tags_colors) ->
+#             if not isEditable()
+#                 renderInReadModeOnly()
+#                 return
+#
+#             showAddTagButton()
+#
+#             input = $el.find("input")
+#
+#             autocomplete = new Awesomplete(input[0], {
+#                 list: _.keys(tags_colors)
+#             })
+#
+#             input.on "awesomplete-selectcomplete", () ->
+#                 addValue(input.val())
+#                 input.val("")
+#
+#         $scope.$watchCollection () ->
+#             return $model.$modelValue?.tags
+#         , () ->
+#             model = $model.$modelValue
+#
+#             return if not model
+#
+#             if model.tags?.length
+#                 hideAddTagButtonText()
+#             else
+#                 showAddTagButtonText()
+#
+#             tagsColors = $scope.project?.tags_colors or []
+#             renderTags(model.tags, tagsColors)
+#
+#         $scope.$on "$destroy", ->
+#             $el.off()
+#
+#     return {
+#         link:link,
+#         require:"ngModel"
+#         templateUrl: "common/tag/tag-line.html"
+#     }
+#
+# module.directive("tgTagLine", ["$rootScope", "$tgRepo", "$tgResources", "$tgConfirm",
+#                                "$tgQueueModelTransformation", "$tgTemplate", "$compile", TagLineDirective])
