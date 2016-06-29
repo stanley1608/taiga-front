@@ -1,0 +1,33 @@
+.tag {
+    @include font-type(light);
+    @include font-size(small);
+    background: $mass-white;
+    border-radius: 0 5px 5px 0;
+    color: $grayer;
+    display: inline-block;
+    margin: 0 .5rem .5rem 0;
+    padding: .5rem;
+    text-align: center;
+    .icon-close {
+        @include svg-size(.7rem);
+        cursor: pointer;
+        fill: $red-light;
+        margin-left: .25rem;
+    }
+}
+//
+// .ui-autocomplete {
+//     background: $white;
+//     border: 1px solid $gray-light;
+//     z-index: 99910;
+//     .ui-state-focus {
+//         background: $primary-light;
+//     }
+//     li {
+//         cursor: pointer;
+//     }
+// }
+//
+// .ui-helper-hidden-accessible {
+//     display: none;
+// }

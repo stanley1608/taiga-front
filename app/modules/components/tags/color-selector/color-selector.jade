@@ -1,0 +1,26 @@
+.color-selector(ng-mouseleave="displaycolorList = false")
+    .tag-color(ng-click="displaycolorList = !displaycolorList")
+    .color-selector-dropdown(ng-show="displaycolorList")
+        ul.color-selector-dropdown-list
+            li.color-selector-option(
+                ng-repeat="color in colorList"
+                ng-style="{'background': color}"
+                ng-title="color"
+                ng-click="onSelectDropdownColor(color)"
+            )
+            li.empty-color
+        .custom-color-selector
+            input.custom-color-input(
+                type="text"
+                maxlength="7"
+                placeholder="#000000"
+                ng-model="customColor.color"
+            )
+            .display-custom-color.empty-color(
+                ng-if="!customColor.color || customColor.color.length < 7"
+            )
+            .display-custom-color(
+                ng-if="customColor.color.length === 7"
+                ng-style="{'background': customColor.color}"
+                ng-click="onSelectDropdownColor(customColor.color)"
+            )

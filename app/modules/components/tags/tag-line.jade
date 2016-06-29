@@ -1,0 +1,14 @@
+.tags-container
+    .tag(
+        ng-repeat="tag in vm.tags"
+        ng-style="{'border-left': '.5rem solid' + tag.color}"
+    )
+        tg-tag(
+            tag="tag"
+            permissions="vm.permissions"
+            project="vm.project"
+            on-delete-tag="vm.onDeleteTag(tag)"
+        )
+
+include components/add-tag-button
+include components/add-tag-input

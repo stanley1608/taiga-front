@@ -1,0 +1,27 @@
+form.add-tag-input(
+    novalidate
+    ng-if="vm.addTag"
+    ng-keydown="vm.closeAddTag($event)"
+)
+    input.tag-input(
+        type="text"
+        placeholder="{{'COMMON.TAGS.PLACEHOLDER' | translate}}"
+        autofocus
+        ng-model="addTag.name"
+        ng-model-options="{debounce: 200}"
+    )
+    ul.tags-dropdown(ng-show="addTag.name.length")
+        li(
+            ng-repeat="tag in vm.colorArray | filter: addTag.name"
+        )
+            tg-tag-option.tags-dropdown-option(
+                name="{{tag[0]}}"
+                color="{{tag[1]}}"
+                ng-click="vm.onSelectDropdownTag(tag[0], tag[1])"
+            )
+    tg-color-selector
+    tg-svg.save(
+        svg-icon="icon-save"
+        svg-title-translate="COMMON.TAGS.ADD"
+        ng-click="vm.onAddTag(addTag.name, addTag.color)"
+    )
