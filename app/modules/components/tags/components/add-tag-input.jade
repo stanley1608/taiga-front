@@ -19,9 +19,11 @@
                 color="{{tag[1]}}"
                 ng-click="vm.onSelectDropdownTag(tag[0], tag[1])"
             )
-    tg-color-selector(on-select-dropdown-color="vm.onSelectDropdownColor(color)")
+    tg-color-selector(
+        selected-color="vm.selectedColor"
+    )
     tg-svg.save(
         svg-icon="icon-save"
         svg-title-translate="COMMON.TAGS.ADD"
-        ng-click="vm.onAddTag(addTag.name, addTag.color)"
+        ng-click="vm.onAddTag(addTag.name, vm.selectedColor)"
     )

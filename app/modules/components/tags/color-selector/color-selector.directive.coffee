@@ -22,7 +22,9 @@ module = angular.module('taigaCommon')
 ColorSelectorDirective = () ->
 
     return {
-        scope:{},
+        scope:{
+            selectedColor: "="
+        },
         templateUrl:"components/tags/color-selector/color-selector.html",
         controller: "ColorSelectorCtrl",
         controllerAs: "vm",
