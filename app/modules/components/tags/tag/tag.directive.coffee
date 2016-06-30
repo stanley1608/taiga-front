@@ -21,7 +21,7 @@ module = angular.module('taigaCommon')
 
 TagDirective = () ->
     return {
-        templateUrl:"components/tags/tag.html",
+        templateUrl:"components/tags/tag/tag.html",
         scope: {
             tag: "<",
             permissions: "@",

@@ -21,7 +21,7 @@ module = angular.module('taigaCommon')
 
 TagOptionDirective = () ->
     return {
-        templateUrl:"components/tags/tag-option.html",
+        templateUrl:"components/tags/tag-dropdown/tag-option.html",
         scope: {
             name: "@",
             color: "@"
