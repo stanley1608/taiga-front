@@ -9,8 +9,7 @@ $tag-input-width: 250px;
     width: $tag-input-width;
     input {
         border-color: $gray-light;
-        margin-right: .25rem;
-        padding: .4rem;
+        padding: 6px;
         width: 14rem;
     }
     .save {

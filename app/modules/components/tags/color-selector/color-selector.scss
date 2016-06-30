@@ -14,9 +14,14 @@
     position: relative;
     .tag-color {
         @include color-selector-option;
-        @include empty-color(34);
         border: 1px solid $gray-light;
+        border-left: 0;
+        border-radius: 0;
         margin: 0;
+        transition: background .3s ease-out;
+        &.empty-color {
+            @include empty-color(34);
+        }
     }
 }
 
@@ -47,13 +52,14 @@
 .custom-color-selector {
     display: flex;
     .custom-color-input {
+        margin: 0;
         width: 100%;
     }
     .display-custom-color {
         @include color-selector-option;
         flex-shrink: 0;
         margin: 0;
-        margin-left: .25rem;
+        margin-right: .5rem;
         &.empty-color {
             @include empty-color(34);
             cursor: default;

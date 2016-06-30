@@ -32,7 +32,6 @@ class TagLineController
     constructor: (@rootScope, @confirm, @modelTransform) ->
         @.tags = @._renderTags(@.type.tags, @.project)
         @.addTag = false
-
         @.colorArray = _.map(@.project.tags_colors, (index, value) ->
             return [value, index]
         )
@@ -52,7 +51,11 @@ class TagLineController
     displayTagInput: () ->
         @.addTag = true
 
-    closeAddTag: (event) ->
+    onSelectDropdownTag: (tag, color) ->
+        @.addTag = false
+        @.onAddTag(tag, color)
+
+    closeTagInput: (event) ->
         if event.keyCode == 27
             @.addTag = false
 
@@ -74,12 +77,7 @@ class TagLineController
 
         return transform.then(onDeleteTagSuccess, onDeleteTagError)
 
-    onSelectDropdownTag: (tag, color) ->
-        @.addTag = false
-        @.onAddTag(tag, color)
-
     onAddTag: (tag, color) ->
-
         if !color
             color = null
 

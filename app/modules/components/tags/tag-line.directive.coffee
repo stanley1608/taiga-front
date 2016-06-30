@@ -32,6 +32,4 @@ TagLineDirective = () ->
         bindToController: true
     }
 
-TagLineDirective.$inject = []
-
 module.directive("tgTagLine", TagLineDirective)
