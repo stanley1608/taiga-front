@@ -1,4 +1,4 @@
-.color-selector(ng-mouseleave="")
+.color-selector(ng-mouseleave="vm.displaycolorList = false")
     .tag-color(
         ng-click="vm.toggleColorList()"
         ng-class="{'empty-color': !vm.selectedColor}"

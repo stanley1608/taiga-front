@@ -1,4 +1,4 @@
-form.add-tag-input(
+.add-tag-input(
     novalidate
     ng-if="vm.addTag"
     ng-keydown="vm.closeTagInput($event)"
@@ -10,8 +10,9 @@ form.add-tag-input(
         ng-model="addTag.name"
         ng-model-options="{debounce: 200}"
     )
-    p {{ vm.colorArray }}
-    ul.tags-dropdown(ng-show="addTag.name.length")
+    ul.tags-dropdown(
+        ng-show="addTag.name.length"
+    )
         li(ng-repeat="tag in vm.colorArray | filter: addTag.name")
             tg-tag-option.tags-dropdown-option(
                 name="{{tag[0]}}"

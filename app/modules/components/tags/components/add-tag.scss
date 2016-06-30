@@ -25,9 +25,9 @@ $tag-input-width: 250px;
     .tags-dropdown {
         @include font-size(small);
         background: $white;
-        border: 1px solid $black;
+        border: 1px solid $gray-light;
         border-top: 0;
-        box-shadow: 3px 3px 2px $gray-light;
+        box-shadow: 2px 2px 3px rgba($black, .2);
         left: 0;
         max-height: 20vh;
         min-height: 0;
