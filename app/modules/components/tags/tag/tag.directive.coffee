@@ -26,10 +26,9 @@ TagDirective = () ->
             tag: "<",
             permissions: "@",
             project: "<",
-            onDeleteTag: "&"
+            onDeleteTag: "&",
+            loadingRemoveTag: "@"
         }
     }
-
-TagDirective.$inject = []
 
 module.directive("tgTag", TagDirective)

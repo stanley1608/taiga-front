@@ -2,6 +2,7 @@
     novalidate
     ng-if="vm.addTag"
     ng-keydown="vm.closeTagInput($event)"
+    tg-loading="vm.loadingAddTag"
 )
     input.tag-input(
         type="text"

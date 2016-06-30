@@ -60,13 +60,15 @@ class TagLineController
             @.addTag = false
 
     onDeleteTag: (tag) ->
-
+        @.loadingRemoveTag = true
         onDeleteTagSuccess = () =>
             @rootScope.$broadcast("object:updated")
             @.tags = @._renderTags(@.type.tags, @.project)
+            @.loadingRemoveTag = false
 
         onDeleteTagError = () =>
             console.log 'error'
+            @.loadingRemoveTag = false
 
         tagName = trim(tag.name.toLowerCase())
         transform = @modelTransform.save (item) ->
@@ -78,6 +80,7 @@ class TagLineController
         return transform.then(onDeleteTagSuccess, onDeleteTagError)
 
     onAddTag: (tag, color) ->
+        @.loadingAddTag = true
         if !color
             color = null
 
@@ -86,9 +89,11 @@ class TagLineController
         onAddTagSuccess = () =>
             @rootScope.$broadcast("object:updated")
             @.addTag = false
+            @.loadingAddTag = false
             @.tags = @._renderTags(@.type.tags, @.project)
 
         onAddTagError = () =>
+            @.loadAddTag = false
             console.log 'error'
 
         transform = @modelTransform.save (item) ->
