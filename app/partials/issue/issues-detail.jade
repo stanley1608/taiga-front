@@ -65,14 +65,11 @@ div.wrapper(
                             )
             .subheader
                 tg-tag-line.tags-block(
+                    ng-if="issue"
                     type="issue"
                     permissions="modify_issue"
+                    project="project"
                 )
-                //- .tags-block(
-                //-     tg-tag-line
-                //-     ng-model="issue"
-                //-     required-perm="modify_issue"
-                //- )
                 tg-created-by-display.ticket-created-by(ng-model="issue")
 
         section.duty-content(

@@ -24,6 +24,7 @@
         selected-color="vm.selectedColor"
     )
     tg-svg.save(
+        ng-show="addTag.name.length"
         svg-icon="icon-save"
         svg-title-translate="COMMON.TAGS.ADD"
         ng-click="vm.onAddTag(addTag.name, vm.selectedColor)"

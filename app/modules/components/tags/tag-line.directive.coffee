@@ -20,7 +20,18 @@
 module = angular.module('taigaCommon')
 
 TagLineDirective = () ->
+
+    link = (scope, el, attr, ctrl) ->
+        scope.$watch "vm.type", (type) ->
+            return if not type
+            ctrl.tags = ctrl._renderTags(type.tags, ctrl.project)
+
+        scope.$watch "vm.project", (project) ->
+            return if not project
+            ctrl.colorArray = ctrl._createColorsArray(ctrl.project.tags_colors)
+
     return {
+        link: link,
         scope: {
             type: "=",
             permissions: "@",

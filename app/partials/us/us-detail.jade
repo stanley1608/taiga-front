@@ -69,8 +69,10 @@ div.wrapper(
                             tg-svg(svg-icon="icon-arrow-right")
             .subheader
                 tg-tag-line.tags-block(
+                    ng-if="us"
                     type="us"
                     permissions="modify_us"
+                    project="project"
                 )
                 tg-created-by-display.ticket-created-by(ng-model="us")
 

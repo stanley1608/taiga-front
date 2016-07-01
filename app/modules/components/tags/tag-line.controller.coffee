@@ -30,9 +30,12 @@ class TagLineController
     ]
 
     constructor: (@rootScope, @confirm, @modelTransform) ->
-        @.tags = @._renderTags(@.type.tags, @.project)
+        @.tags = []
+        @.colorArray = []
         @.addTag = false
-        @.colorArray = _.map(@.project.tags_colors, (index, value) ->
+
+    _createColorsArray: (projectTagColors) ->
+        @.colorArray = _.map(projectTagColors, (index, value) ->
             return [value, index]
         )
 
@@ -52,7 +55,6 @@ class TagLineController
         @.addTag = true
 
     onSelectDropdownTag: (tag, color) ->
-        @.addTag = false
         @.onAddTag(tag, color)
 
     closeTagInput: (event) ->
@@ -64,11 +66,10 @@ class TagLineController
         @.loadingRemoveTag = tag.name
         onDeleteTagSuccess = () =>
             @rootScope.$broadcast("object:updated")
-            @.tags = @._renderTags(@.type.tags, @.project)
             @.loadingRemoveTag = false
 
         onDeleteTagError = () =>
-            console.log 'error'
+            @confirm.notify("error")
             @.loadingRemoveTag = false
 
         tagName = trim(tag.name.toLowerCase())
@@ -87,14 +88,13 @@ class TagLineController
         newTag = [tag, color]
 
         onAddTagSuccess = () =>
-            @rootScope.$broadcast("object:updated")
+            @rootScope.$broadcast("object:updated") #its a kind of magic.
             @.addTag = false
             @.loadingAddTag = false
-            @.tags = @._renderTags(@.type.tags, @.project)
 
         onAddTagError = () =>
             @.loadAddTag = false
-            console.log 'error'
+            @confirm.notify("error")
 
         transform = @modelTransform.save (item) ->
             if not item.tags

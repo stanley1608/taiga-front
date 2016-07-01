@@ -1,7 +1,7 @@
 .tags-container
     .tag(
         ng-repeat="tag in vm.tags"
-        ng-style="{'border-left': '.5rem solid' + tag.color}"
+        ng-style="{'border-left': '.5rem solid' + (tag.color || 'transparent')}"
     )
         tg-tag(
             tag="tag"
