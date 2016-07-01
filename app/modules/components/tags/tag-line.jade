@@ -1,7 +1,19 @@
 .tags-container
     .tag(
+        ng-if="tag.color"
         ng-repeat="tag in vm.tags"
-        ng-style="{'border-left': '.5rem solid' + (tag.color || 'transparent')}"
+        ng-style="{'border-left': '.3rem solid' + tag.color}"
+    )
+        tg-tag(
+            tag="tag"
+            permissions="vm.permissions"
+            project="vm.project"
+            on-delete-tag="vm.onDeleteTag(tag)"
+            loading-remove-tag="{{vm.loadingRemoveTag}}"
+        )
+    .tag(
+        ng-if="!tag.color"
+        ng-repeat="tag in vm.tags"
     )
         tg-tag(
             tag="tag"
