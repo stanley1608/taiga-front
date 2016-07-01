@@ -60,7 +60,8 @@ class TagLineController
             @.addTag = false
 
     onDeleteTag: (tag) ->
-        @.loadingRemoveTag = true
+        console.log "tag:", tag.name
+        @.loadingRemoveTag = tag.name
         onDeleteTagSuccess = () =>
             @rootScope.$broadcast("object:updated")
             @.tags = @._renderTags(@.type.tags, @.project)
@@ -73,7 +74,6 @@ class TagLineController
         tagName = trim(tag.name.toLowerCase())
         transform = @modelTransform.save (item) ->
             tags = _.clone(item.tags, false)
-            console.log tags, tagName
             item.tags = _.pull(tags, tagName)
             return item
 

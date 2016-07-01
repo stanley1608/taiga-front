@@ -1,7 +1,8 @@
 span {{ tag.name }}
+span {{loadingRemoveTag == tag.name}}
 tg-svg.icon-close(
     svg-icon="icon-close"
     svg-title-translate="COMMON.TAG.DELETE"
     ng-click="onDeleteTag(tag)"
-    tg-loading="loadingRemoveTag"
+    tg-loading="loadingRemoveTag == tag.name"
 )
