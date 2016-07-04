@@ -73,10 +73,16 @@ div.wrapper(
                 fieldset
                     label(for="tags") {{ 'ADMIN.PROJECT_PROFILE.TAGS' | translate }}
                     
-                    div.tags-block(
-                        tg-lb-tag-line
-                        ng-model="project.tags"
-                        without-colors
+                    //- div.tags-block(
+                    //-     tg-lb-tag-line
+                    //-     ng-model="project.tags"
+                    //-     without-colors
+                    //- )
+                    
+                    tg-tag-line-common.tags-block(
+                        project="project"
+                        type="project"
+                        permissions="modify_project"
                     )
 
                 fieldset(ng-if="project.owner.id != user.id")

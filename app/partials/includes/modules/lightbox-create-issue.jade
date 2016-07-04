@@ -29,9 +29,10 @@ form
             )
 
     fieldset
-        .tags-block(
-            tg-lb-tag-line
-            ng-model="issue.tags"
+        tg-tag-line-common.tags-block(
+            project="project"
+            type="issue"
+            permissions="add_issue"
         )
 
     fieldset

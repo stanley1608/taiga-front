@@ -19,15 +19,28 @@
 
 module = angular.module('taigaCommon')
 
-TagDirective = () ->
+TagLineCommonDirective = () ->
+
+    link = (scope, el, attr, ctrl) ->
+        scope.$watch "vm.type", (type) ->
+            return if not Object.keys(type).length
+            ctrl.tags = ctrl._renderTags(type.tags, ctrl.project)
+
+        scope.$watchCollection "vm.project", (project) ->
+            return if not Object.keys(project).length
+            ctrl.colorArray = ctrl._createColorsArray(ctrl.project.tags_colors)
+
     return {
-        templateUrl:"components/tags/tag/tag.html",
+        link: link,
         scope: {
-            tag: "<",
-            onDeleteTag: "&",
-            loadingRemoveTag: "@",
-            hasPermissions: "@"
-        }
+            permissions: "@",
+            type: "=",
+            project: "="
+        },
+        templateUrl:"components/tags/tag-line-common.html",
+        controller: "TagLineCommonCtrl",
+        controllerAs: "vm",
+        bindToController: true
     }
 
-module.directive("tgTag", TagDirective)
+module.directive("tgTagLineCommon", TagLineCommonDirective)

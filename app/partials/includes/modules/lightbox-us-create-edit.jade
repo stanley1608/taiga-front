@@ -24,9 +24,10 @@ form
         )
 
     fieldset
-        div.tags-block(
-            tg-lb-tag-line
-            ng-model="us.tags"
+        tg-tag-line-common.tags-block(
+            project="project"
+            type="us"
+            permissions="add_us"
         )
 
     fieldset

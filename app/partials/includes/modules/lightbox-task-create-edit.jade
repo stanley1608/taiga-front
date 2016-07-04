@@ -30,9 +30,10 @@ form
             )
 
     fieldset
-        div.tags-block(
-            tg-lb-tag-line
-            ng-model="task.tags"
+        tg-tag-line-common.tags-block(
+            project="project"
+            type="task"
+            permissions="add_task"
         )
 
     fieldset
