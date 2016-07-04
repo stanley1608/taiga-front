@@ -6,10 +6,10 @@
     )
         tg-tag(
             tag="tag"
-            permissions="vm.permissions"
             project="vm.project"
             on-delete-tag="vm.onDeleteTag(tag)"
             loading-remove-tag="{{vm.loadingRemoveTag}}"
+            has-permissions="{{vm.checkPermissions()}}"
         )
     .tag(
         ng-if="!tag.color"
@@ -17,10 +17,9 @@
     )
         tg-tag(
             tag="tag"
-            permissions="vm.permissions"
-            project="vm.project"
             on-delete-tag="vm.onDeleteTag(tag)"
             loading-remove-tag="{{vm.loadingRemoveTag}}"
+            has-permissions="{{vm.checkPermissions()}}"
         )
 
 include components/add-tag-button

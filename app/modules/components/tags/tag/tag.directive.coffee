@@ -20,14 +20,17 @@
 module = angular.module('taigaCommon')
 
 TagDirective = () ->
+    link = (scope, el, attr, ctrl) ->
+        console.log 'tag', scope.hasPermissions
+
     return {
+        link: link
         templateUrl:"components/tags/tag/tag.html",
         scope: {
             tag: "<",
-            permissions: "@",
-            project: "<",
             onDeleteTag: "&",
-            loadingRemoveTag: "@"
+            loadingRemoveTag: "@",
+            hasPermissions: "@"
         }
     }
 

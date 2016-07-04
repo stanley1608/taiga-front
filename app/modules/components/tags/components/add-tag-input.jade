@@ -1,6 +1,6 @@
 .add-tag-input(
     novalidate
-    ng-if="vm.addTag"
+    ng-if="vm.addTag && vm.checkPermissions()"
     ng-keydown="vm.closeTagInput($event)"
     tg-loading="vm.loadingAddTag"
 )

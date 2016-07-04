@@ -37,7 +37,7 @@ TagLineDirective = () ->
             permissions: "@",
             project: "="
         },
-        templateUrl:"components/tags/tag-line.html",
+        templateUrl:"components/tags/tag-line-detail.html",
         controller: "TagLineCtrl",
         controllerAs: "vm",
         bindToController: true

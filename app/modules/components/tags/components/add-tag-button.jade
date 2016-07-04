@@ -1,5 +1,5 @@
 a.add-tag-button.ng-animate-disabled(
-    ng-if="!vm.addTag"
+    ng-if="!vm.addTag && vm.checkPermissions()"
     href="#"
     title="{{'COMMON.TAGS.ADD' | translate}}"
     ng-click="vm.displayTagInput()"

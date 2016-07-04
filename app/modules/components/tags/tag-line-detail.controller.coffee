@@ -34,6 +34,9 @@ class TagLineController
         @.colorArray = []
         @.addTag = false
 
+    checkPermissions: () ->
+        return _.includes(@.project.my_permissions, @.permissions)
+
     _createColorsArray: (projectTagColors) ->
         @.colorArray = _.map(projectTagColors, (index, value) ->
             return [value, index]

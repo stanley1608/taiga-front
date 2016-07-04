@@ -1,5 +1,6 @@
 span {{ tag.name }}
 tg-svg.icon-close(
+    ng-if="hasPermissions"
     svg-icon="icon-close"
     svg-title-translate="COMMON.TAG.DELETE"
     ng-click="onDeleteTag(tag)"
