@@ -26,33 +26,23 @@ class TagLineController
     @.$inject = [
         "$rootScope",
         "$tgConfirm",
-        "$tgQueueModelTransformation"
+        "$tgQueueModelTransformation",
+        "tgTagLineService"
     ]
 
-    constructor: (@rootScope, @confirm, @modelTransform) ->
+    constructor: (@rootScope, @confirm, @modelTransform, @tagLineService) ->
         @.tags = []
         @.colorArray = []
         @.addTag = false
 
     checkPermissions: () ->
-        return _.includes(@.project.my_permissions, @.permissions)
+        return @tagLineService.checkPermissions(@.project.my_permissions, @.permissions)
 
     _createColorsArray: (projectTagColors) ->
-        @.colorArray = _.map(projectTagColors, (index, value) ->
-            return [value, index]
-        )
+        @.colorArray =  @tagLineService.createColorsArray(projectTagColors)
 
     _renderTags: (tags, project) ->
-        colored_tags = []
-        tagsColors = project.tags_colors
-        for name, color in tags
-            color = tagsColors[name]
-            colored_tags.push({
-                name: name
-                color: color
-            })
-
-        return colored_tags
+        return @tagLineService._renderTags(tags, project)
 
     displayTagInput: () ->
         @.addTag = true

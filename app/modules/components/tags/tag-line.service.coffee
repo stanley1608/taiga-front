@@ -1,0 +1,47 @@
+###
+# Copyright (C) 2014-2016 Taiga Agile LLC <taiga@taiga.io>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# File: tag-line.service.coffee
+###
+
+module = angular.module('taigaCommon')
+
+class TagLineService extends taiga.Service
+    @.$inject = []
+
+    constructor: () ->
+
+    checkPermissions: (myPermissions, projectPermissions) ->
+        return _.includes(myPermissions, projectPermissions)
+
+    createColorsArray: (projectTagColors) ->
+        return _.map(projectTagColors, (index, value) ->
+            return [value, index]
+        )
+
+    renderTags: (tags, project) ->
+        colored_tags = []
+        tagsColors = project.tags_colors
+        for name, color in tags
+            color = tagsColors[name]
+            colored_tags.push({
+                name: name
+                color: color
+            })
+
+        return colored_tags
+
+module.service("tgTagLineService", TagLineService)

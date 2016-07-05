@@ -37,7 +37,7 @@ TagLineCommonDirective = () ->
             type: "=",
             project: "="
         },
-        templateUrl:"components/tags/tag-line-common.html",
+        templateUrl:"components/tags/tag-line-common/tag-line-common.html",
         controller: "TagLineCommonCtrl",
         controllerAs: "vm",
         bindToController: true

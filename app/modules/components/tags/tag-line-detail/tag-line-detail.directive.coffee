@@ -22,7 +22,7 @@ module = angular.module('taigaCommon')
 TagLineDirective = () ->
 
     link = (scope, el, attr, ctrl) ->
-        if vm.type
+        if ctrl.type
             scope.$watch "vm.type", (type) ->
                 return if not type
                 ctrl.tags = ctrl._renderTags(type.tags, ctrl.project)
@@ -38,7 +38,7 @@ TagLineDirective = () ->
             permissions: "@",
             project: "="
         },
-        templateUrl:"components/tags/tag-line-detail.html",
+        templateUrl:"components/tags/tag-line-detail/tag-line-detail.html",
         controller: "TagLineCtrl",
         controllerAs: "vm",
         bindToController: true
