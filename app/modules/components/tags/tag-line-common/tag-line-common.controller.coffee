@@ -39,7 +39,7 @@ class TagLineCommonController
         @.colorArray =  @tagLineService.createColorsArray(projectTagColors)
 
     _renderTags: (tags, project) ->
-        return @tagLineService._renderTags(tags, project)
+        return @tagLineService.renderTags(tags, project)
 
     displayTagInput: () ->
         @.addTag = true
@@ -63,9 +63,12 @@ class TagLineCommonController
         tags = [] if not tags?
         projectTags = {} if not projectTags?
 
-        tags.push(value) if value not in tags
+        if value not in tags
+            tags.push(value)
+
         projectTags[tag] = color || null
 
+        @.project.tags = tags
         @.addTag = false
         @.loadingAddTag = false
         #Update Model

@@ -23,12 +23,14 @@ TagLineDirective = () ->
 
     link = (scope, el, attr, ctrl) ->
         if ctrl.type
-            scope.$watch "vm.type", (type) ->
-                return if not type
-                ctrl.tags = ctrl._renderTags(type.tags, ctrl.project)
+            scope.$watchCollection "vm.type.tags", (tags) ->
+                return if not tags.length
+                ctrl.tags = ctrl._renderTags(tags, ctrl.project)
 
-        scope.$watch "vm.project", (project) ->
+        unwatch = scope.$watch "vm.project", (project) ->
             return if not project
+
+            unwatch()
             ctrl.colorArray = ctrl._createColorsArray(ctrl.project.tags_colors)
 
     return {

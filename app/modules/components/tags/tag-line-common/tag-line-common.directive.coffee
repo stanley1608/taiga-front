@@ -22,12 +22,13 @@ module = angular.module('taigaCommon')
 TagLineCommonDirective = () ->
 
     link = (scope, el, attr, ctrl) ->
-        scope.$watch "vm.type", (type) ->
-            return if not Object.keys(type).length
-            ctrl.tags = ctrl._renderTags(type.tags, ctrl.project)
+        scope.$watchCollection "vm.type.tags", (tags) ->
+            return if not tags.length
+            ctrl.tags = ctrl._renderTags(tags, ctrl.project)
 
-        scope.$watchCollection "vm.project", (project) ->
+        unwatch = scope.$watch "vm.project", (project) ->
             return if not Object.keys(project).length
+            unwatch()
             ctrl.colorArray = ctrl._createColorsArray(ctrl.project.tags_colors)
 
     return {

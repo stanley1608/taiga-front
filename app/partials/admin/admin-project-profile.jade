@@ -72,14 +72,15 @@ div.wrapper(
                     )
                 fieldset
                     label(for="tags") {{ 'ADMIN.PROJECT_PROFILE.TAGS' | translate }}
-                    
+
                     //- div.tags-block(
                     //-     tg-lb-tag-line
                     //-     ng-model="project.tags"
                     //-     without-colors
                     //- )
-                    
+
                     tg-tag-line-common.tags-block(
+                        ng-if="project"
                         project="project"
                         type="project"
                         permissions="modify_project"

@@ -42,7 +42,7 @@ class TagLineController
         @.colorArray =  @tagLineService.createColorsArray(projectTagColors)
 
     _renderTags: (tags, project) ->
-        return @tagLineService._renderTags(tags, project)
+        return @tagLineService.renderTags(tags, project)
 
     displayTagInput: () ->
         @.addTag = true
