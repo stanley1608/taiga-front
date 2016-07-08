@@ -55,7 +55,6 @@ class TagLineController
             @.addTag = false
 
     onDeleteTag: (tag) ->
-        console.log "tag:", tag.name
         @.loadingRemoveTag = tag.name
         onDeleteTagSuccess = () =>
             @rootScope.$broadcast("object:updated")
@@ -73,14 +72,15 @@ class TagLineController
 
         return transform.then(onDeleteTagSuccess, onDeleteTagError)
 
-    onAddTag: (tag, color) ->
+    onAddTag: (tag, color, project) ->
         @.loadingAddTag = true
         if !color
             color = null
 
         newTag = [tag, color]
 
-        onAddTagSuccess = () =>
+        onAddTagSuccess = (project) =>
+            project.tags_colors[tag] = color
             @rootScope.$broadcast("object:updated") #its a kind of magic.
             @.addTag = false
             @.loadingAddTag = false
@@ -93,11 +93,14 @@ class TagLineController
             if not item.tags
                 item.tags = []
 
+            if not item.tags
+                project.tags_colors = {}
+
             tags = _.clone(item.tags)
             tags.push(newTag) if tag.name not in tags
             item.tags = tags
             return item
 
-        return transform.then(onAddTagSuccess, onAddTagError)
+        return transform.then(onAddTagSuccess(project), onAddTagError)
 
 module.controller("TagLineCtrl", TagLineController)
